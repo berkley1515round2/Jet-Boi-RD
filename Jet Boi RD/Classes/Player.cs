@@ -20,5 +20,10 @@ namespace Jet_Boi_RD.Classes
             hb = new Rectangle(x, y, width, height);
 
         }
+        public void move(int spd)
+        {
+            y += spd;
+            hb.Y += spd;
+        }
     }
 }

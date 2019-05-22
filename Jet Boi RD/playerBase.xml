@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<player>
+  <coin>38</coin>
+  <maxDist>0</maxDist>
+  <upgradesPurch>
+    <upgrade name="jumpBoost" value="False" />
+    <upgrade name="ironBoi" value="False" />
+  </upgradesPurch>
+  <upgradesActv>
+    <upgrade name="jumpBoost" value="False" />
+    <upgrade name="ironBoi" value="False" />
+  </upgradesActv>
+  <mechs>
+    <superJump>False</superJump>
+    <telporter>False</telporter>
+    <gravity>False</gravity>
+  </mechs>
+  <mechUpgs>
+    <teleporter>
+      <magnet>False</magnet>
+      <golden>False</golden>
+    </teleporter>
+    <superJump>
+      <magnet>False</magnet>
+      <golden>False</golden>
+    </superJump>
+    <gravity>
+      <magnet>False</magnet>
+      <golden>False</golden>
+    </gravity>
+  </mechUpgs>
+</player>
