@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Jet_Boi_RD.Screens
 {
@@ -35,41 +36,228 @@ namespace Jet_Boi_RD.Screens
         public static int backgroundMoveSpd = 8;
         Classes.laser laserToRemove;
         Classes.coin coinToRemove;
+        public static long dist;
+        public static long maxDist;
+        public static float actualDist;
         public static int coinScore = 0;
-        int coinChance = 15;
+        int coinChance = 30;
         bool endGame = false;
         int bounce;
         bool bounceUp = true;
+        static Dictionary<string, bool> mechs = new Dictionary<string, bool>();
+        static Dictionary<string, bool> upgrades = new Dictionary<string, bool>();
+        static Dictionary<string, bool> upgradesActv = new Dictionary<string, bool>();
+        static Dictionary<string, Dictionary<string, bool>> mechUpgs = new Dictionary<string, Dictionary<string, bool>>();
         #endregion
         public GameScreen()
         {
             InitializeComponent();
+            if (!Form1.start)
+            {
+                mechs.Add("superJump", false);
+                mechs.Add("telporter", false);
+                mechs.Add("gravity", false);
+                upgrades.Add("jumpBoost", false);
+                upgradesActv.Add("jumpBoost", false);
+                upgrades.Add("ironBoi", false);
+                upgradesActv.Add("ironBoi", false);
+                Dictionary<string, bool> a = new Dictionary<string, bool>();
+                a.Add("magnet", false);
+                a.Add("golden", false);
+                Dictionary<string, bool> b = new Dictionary<string, bool>();
+                b.Add("magnet", false);
+                b.Add("golden", false);
+                Dictionary<string, bool> c = new Dictionary<string, bool>();
+                c.Add("magnet", false);
+                c.Add("golden", false);
+                mechUpgs.Add("teleporter", a);
+                mechUpgs.Add("superJump", b);
+                mechUpgs.Add("gravity", c);
+                Form1.start = true;
+            }
+            //xmlSave();
+            xmlLoad();
+        }
 
+        public static void xmlLoad()
+        {
+
+            //creates variables and xml reader needed
+            XmlReader reader = XmlReader.Create("player1.xml");
+            reader.ReadToFollowing("coin");
+            coinScore = Convert.ToInt16(reader.ReadString());
+            reader.ReadToFollowing("maxDist");
+            maxDist = Convert.ToInt64(reader.ReadString());
+            //Grabs all the blocks for the current level and adds them to the list
+            Dictionary<string, bool> upgd = new Dictionary<string, bool>();
+            foreach(KeyValuePair<string, bool> b in upgrades)
+            {
+                reader.ReadToFollowing("upgrade");
+                string key = reader.GetAttribute("name");
+                upgd[key] = XmlConvert.ToBoolean(reader.GetAttribute("value").ToLower());            
+            }
+            upgrades = upgd;
+            Dictionary<string, bool> upgdA = new Dictionary<string, bool>();
+            foreach (KeyValuePair<string, bool> b in upgradesActv)
+            {
+                reader.ReadToFollowing("upgrade");
+                string key = reader.GetAttribute("name");
+                upgdA[key] = XmlConvert.ToBoolean(reader.GetAttribute("value").ToLower());
+            }
+            upgradesActv = upgdA;
+            reader.ReadToFollowing("mechs");
+            Dictionary<string, bool> mch = new Dictionary<string, bool>();
+            foreach (KeyValuePair<string, bool> b in mechs)
+            {
+                reader.ReadToFollowing(b.Key);
+                mch[b.Key] = XmlConvert.ToBoolean(reader.ReadString().ToLower());
+            }
+            mechs = mch;
+            reader.ReadToFollowing("mechUpgs");
+            Dictionary<string, Dictionary<string, bool>> mchUpgd = new Dictionary<string, Dictionary<string, bool>>();
+            foreach (KeyValuePair<string, Dictionary<string, bool>> c in mechUpgs)
+            {
+
+                reader.ReadToFollowing(c.Key);
+                Dictionary<string, bool> x = new Dictionary<string, bool>();
+                foreach (KeyValuePair<string, bool> b in c.Value)
+                {
+
+                    reader.ReadToFollowing(b.Key);
+                    
+                    x.Add(b.Key, XmlConvert.ToBoolean(reader.ReadString().ToLower()));
+                    
+                }
+                mchUpgd[c.Key] = x;
+            }
+            mechUpgs = mchUpgd;
+            reader.Close();
+        }
+        public static void xmlSave()
+        {
+            /*
+            highscores.Add(score);
+            //can be used to create farthest distance
+            highscores.Sort();
+            highscores.Reverse();
+            */
+            XmlWriter writer = XmlWriter.Create("player1.xml", null);
+            writer.WriteStartElement("player");
+            writer.WriteString("\n");
+            writer.WriteElementString("coin", "" + coinScore);
+            writer.WriteString("\n");
+            writer.WriteElementString("maxDist", "" + maxDist);
+            writer.WriteString("\n");
+            writer.WriteStartElement("upgradesPurch");
+            writer.WriteString("\n");
+            foreach (KeyValuePair<string, bool> b in upgrades)
+            {
+                writer.WriteStartElement("upgrade");
+                writer.WriteAttributeString("name", b.Key);
+                writer.WriteAttributeString("value", "" + b.Value);
+                writer.WriteEndElement();
+                writer.WriteString("\n");
+            }
+            writer.WriteEndElement();
+            writer.WriteString("\n");
+            writer.WriteStartElement("upgradesActv");
+            writer.WriteString("\n");
+            foreach (KeyValuePair<string, bool> b in upgradesActv)
+            {
+                writer.WriteStartElement("upgrade");
+                writer.WriteAttributeString("name", b.Key);
+                writer.WriteAttributeString("value", "" + b.Value);
+                writer.WriteEndElement();
+                writer.WriteString("\n");
+            }
+            writer.WriteEndElement();
+            writer.WriteString("\n");
+            writer.WriteStartElement("mechs");
+            writer.WriteString("\n");
+            foreach (KeyValuePair<string, bool> b in mechs)
+            {
+                writer.WriteStartElement(b.Key);
+                writer.WriteString("" + b.Value);
+                writer.WriteEndElement();
+                writer.WriteString("\n");
+            }
+            writer.WriteEndElement();
+            writer.WriteString("\n");
+            writer.WriteStartElement("mechUpgs");
+            writer.WriteString("\n");
+            foreach (KeyValuePair<string, Dictionary<string, bool>> c in mechUpgs)
+            {
+                writer.WriteStartElement(c.Key);
+                writer.WriteString("\n");
+                foreach (KeyValuePair<string, bool> b in c.Value)
+                {
+                    writer.WriteStartElement(b.Key);
+                    writer.WriteString("" + b.Value);
+                    writer.WriteEndElement();
+                    writer.WriteString("\n");
+                }
+                writer.WriteEndElement();
+                writer.WriteString("\n");
+            }
+            writer.WriteEndElement();
+            writer.WriteString("\n");
+
+            writer.Close();
 
         }
+
         public void GameOver()
         {
+            if (dist > maxDist) maxDist = dist;
+            xmlSave();
+            gameTimer.Stop();
+            
+            if (coinScore >= 250)
+            {
+                revivePopup rp = new revivePopup();
+
+                DialogResult result = rp.ShowDialog();
+
+                if (result == DialogResult.Yes)
+                {
+                    gameTimer.Enabled = true;
+                    backgroundMoveSpd = 8;
+                    timeBtwnLasers = 120;
+                    coinScore -= 250;
+                    endGame = false;
+                    lasers.Clear();
+                }
+                else if (result == DialogResult.No)
+                {
+                    Form1.switchScreen(this, "shop");
+                    dist = 0;
+                }
+            }
+            else
+            {
+                Form1.switchScreen(this, "shop");
+            }
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             tick++;
-            if (endGame && tick % 30 == 0)
+            dist += backgroundMoveSpd;
+            actualDist = dist / 100;
+            if (endGame && tick % 15 == 0)
             {
                 if (backgroundMoveSpd > 0) backgroundMoveSpd--;
                 else GameOver();
             }
-            if (endGame && player.y > this.Height - pheight - 50)
+            if (endGame && player.hb.Bottom > this.Height - pheight - 1 && !bounceUp)
             {
                 bounceUp = true;
                 bounce /= 2;
-                
             }
 
-             if (player.y > bounce && bounceUp && endGame)
+             if (player.hb.Bottom > this.Height - bounce && bounceUp && endGame)
             {
-                player.y -= 10;
-                player.hb.Y -= 10;
+                player.move(-10);
                 airDownFrames = 0;
             }
             else
@@ -78,7 +266,7 @@ namespace Jet_Boi_RD.Screens
                 
             }
 
-            if (r.Next(0, 101) < coinChance && tick % 120 == 0)
+            if (r.Next(0, 101) < coinChance && tick % 120 == 0 && !endGame)
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
             }
@@ -86,12 +274,12 @@ namespace Jet_Boi_RD.Screens
             {
                 lasers.Add(new Classes.laser(this.Width, 10, midLaser, laserWidth));
             }
-            else if (tick % timeBtwnLasers == 0)
+            else if (tick % timeBtwnLasers == 0 && !endGame)
             {
                 generateLaser(player.y);
             }
-            if (tick % 1200 == 0 && coinChance < 35) coinChance += 5;
-            if (tick % 720 == 0)
+            if (tick % 1200 == 0 && coinChance < 35 && !endGame) coinChance += 5;
+            if (tick % 720 == 0 && !endGame)
             {
 
                 if (backgroundMoveSpd < 20)
@@ -100,53 +288,64 @@ namespace Jet_Boi_RD.Screens
 
                 }
 
-                if (timeBtwnLasers > 30) timeBtwnLasers -= 15;
+                //if (timeBtwnLasers > 15) timeBtwnLasers -= 15;
+            }
+            if(tick % 120 == 0)
+            {
+                if (timeBtwnLasers > 20) timeBtwnLasers -= 5;
+                else
+                {
+                     //timeBtwnLasers = 5;
+                }
             }
             if (up)
             {
                 if (player.hb.Y > 0)
                 {
-                    player.y -= 6;
-                    player.hb.Y -= 6;
+                    player.move(-8);
                 }
                 if (airDownFrames > 0) airDownFrames -= 2;
             }
-            else if (player.hb.Bottom < this.Height - pheight)
+            if (player.hb.Bottom < this.Height - pheight) // if player is not touching bottom of screen
             {
-                if (player.hb.Bottom + 2 < this.Height)
+                if (!up)
                 {
-                    player.y += 2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 10);
-                    player.hb.Y += 2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 10);
+                    if (player.hb.Bottom + 2 < this.Height)
+                    {
+                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 10));
+                    }
+                    else
+                    {
+                        player.hb.Y = this.Height - player.hb.Height;
+                        player.y = this.Height - player.hb.Height;
+                    }
+                    if (airDownFrames < 10) airDownFrames++;
                 }
-                else
-                {
-                    player.hb.Y = this.Height - player.hb.Height;
-                    player.y = this.Height - player.hb.Height;
-                }
-                if (airDownFrames < 10) airDownFrames++;
-
                 /*
                  * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
                 if( airDownFrames < 13) airDownFrames++;
                  */
             }
-            else if (player.hb.Bottom >= this.Height - pheight)
+            else if (player.hb.Bottom >= this.Height - pheight) // if player is touching bottom of screen
             {
                 grounded = true;
             }
             if (jumping)
             {
-                player.y -= 30;
-                player.hb.Y -= 30;
+                player.move(-30);
                 jumping = false;
             }
-
+            if (endGame) up = false;
             Refresh();
         }
 
         private void GameScreen_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space && !endGame)
+            if(endGame)
+            {
+
+            }
+            else if (e.KeyCode == Keys.Space && !endGame)
             {
                 if (grounded) // boost
                 {
@@ -154,11 +353,12 @@ namespace Jet_Boi_RD.Screens
                     jumping = true;
                     up = true;
                 }
-                else
+                else if(!endGame)
                 {
                     up = true;
                 }
             }
+
 
         }
 
@@ -201,7 +401,7 @@ namespace Jet_Boi_RD.Screens
                     }
                 }
             }
-            e.Graphics.DrawString("coins " + coinScore, Font, new SolidBrush(Color.White), 0, 10);
+            e.Graphics.DrawString("coins " + actualDist, Font, new SolidBrush(Color.White), 0, 10);
             RemoveLaser(laserToRemove);
             RemoveCoin(delete);
             coinToRemove = null;
@@ -326,5 +526,6 @@ namespace Jet_Boi_RD.Screens
 
             lasers.Add(new Classes.laser(this.Width, y, l, w));
         }
+        
     }
 }

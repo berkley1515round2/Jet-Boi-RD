@@ -13,6 +13,7 @@ namespace Jet_Boi_RD
     public partial class Form1 : Form
     {
         public static Form form;
+        public static bool start = false;
         public Form1()
         {
             InitializeComponent();
@@ -20,8 +21,7 @@ namespace Jet_Boi_RD
             this.Controls.Add(ms);
             ms.Width = this.Width;
             ms.Height = this.Height;
-            form = Form1.ActiveForm;
-
+            form = FindForm();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,20 +33,27 @@ namespace Jet_Boi_RD
 
         public static void switchScreen(UserControl current, string next)
         {
-            UserControl ms = new Screens.GameScreen();
+            UserControl ms = new Screens.ShopScreen();
+
             switch(next)
             {
-                case "gameScreen":
+                case "game":
                     ms = new Screens.GameScreen();
                     break;
-                case "shopScreen":
+                case "shop":
                     ms = new Screens.ShopScreen();
                     break;
             }
+
             form.Controls.Add(ms);
             form.Controls.Remove(current);
             ms.Width = form.Width;
             ms.Height = form.Height;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Screens.GameScreen.xmlSave();
         }
     }
 }
