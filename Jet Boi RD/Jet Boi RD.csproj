@@ -49,6 +49,7 @@
     <Compile Include="Classes\coin.cs" />
     <Compile Include="Classes\laser.cs" />
     <Compile Include="Classes\machinePowerup.cs" />
+    <Compile Include="Classes\mechToken.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\rocket.cs" />
     <Compile Include="Classes\targetLaser.cs" />
