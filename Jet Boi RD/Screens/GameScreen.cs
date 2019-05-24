@@ -36,6 +36,7 @@ namespace Jet_Boi_RD.Screens
         public static int backgroundMoveSpd = 8;
         Classes.laser laserToRemove;
         Classes.coin coinToRemove;
+        Classes.mechToken MTokenToRemove;
         public static long dist;
         public static long maxDist;
         public static float actualDist;
@@ -44,10 +45,27 @@ namespace Jet_Boi_RD.Screens
         bool endGame = false;
         int bounce;
         bool bounceUp = true;
-        static Dictionary<string, bool> mechs = new Dictionary<string, bool>();
-        static Dictionary<string, bool> upgrades = new Dictionary<string, bool>();
-        static Dictionary<string, bool> upgradesActv = new Dictionary<string, bool>();
-        static Dictionary<string, Dictionary<string, bool>> mechUpgs = new Dictionary<string, Dictionary<string, bool>>();
+        public static Dictionary<string, bool> mechs = new Dictionary<string, bool>();
+        public static Dictionary<string, bool> upgrades = new Dictionary<string, bool>();
+        public static Dictionary<string, bool> upgradesActv = new Dictionary<string, bool>();
+        public static Dictionary<string, Dictionary<string, bool>> mechUpgs = new Dictionary<string, Dictionary<string, bool>>();
+        static List<Classes.mechToken> MTokens = new List<Classes.mechToken>();
+
+        public bool toClearLsers = false;
+
+        public bool keydown = false;
+
+        public static string curntMech = "none";
+        public static bool abort = false;
+
+        public bool gravDown = true; //for gravity suit
+
+        public bool teleporterUp = false; // for teleporter
+        public int teleporterMarkerY = 0;
+
+        public int upFrames = 0; // for super jump
+
+
         #endregion
         public GameScreen()
         {
@@ -221,7 +239,7 @@ namespace Jet_Boi_RD.Screens
                 if (result == DialogResult.Yes)
                 {
                     gameTimer.Enabled = true;
-                    backgroundMoveSpd = 8;
+                    backgroundMoveSpd = 12;
                     timeBtwnLasers = 120;
                     coinScore -= 250;
                     endGame = false;
@@ -247,14 +265,14 @@ namespace Jet_Boi_RD.Screens
             if (endGame && tick % 15 == 0)
             {
                 if (backgroundMoveSpd > 0) backgroundMoveSpd--;
-                else GameOver();
+                else if(bounce < 10 && backgroundMoveSpd == 0) GameOver();
             }
-            if (endGame && player.hb.Bottom > this.Height - pheight - 1 && !bounceUp)
+            if (endGame && player.hb.Bottom > this.Height && !bounceUp)
             {
                 bounceUp = true;
                 bounce /= 2;
+                if (bounce < 9) bounce = 0;
             }
-
              if (player.hb.Bottom > this.Height - bounce && bounceUp && endGame)
             {
                 player.move(-10);
@@ -269,6 +287,15 @@ namespace Jet_Boi_RD.Screens
             if (r.Next(0, 101) < coinChance && tick % 120 == 0 && !endGame)
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
+            }
+            if (r.Next(0, 5) == 0 && tick % 1200 == 0 && !endGame && curntMech == "none")
+            {
+                Classes.mechToken m = new Classes.mechToken(this.Width, r.Next(0, this.Height - 50));
+                if (!abort)
+                {
+                    MTokens.Add(m);
+                }
+                else abort = false;
             }
             if (tick == 180)
             {
@@ -298,43 +325,34 @@ namespace Jet_Boi_RD.Screens
                      //timeBtwnLasers = 5;
                 }
             }
-            if (up)
+            
+
+            
+
+            switch (curntMech)
             {
-                if (player.hb.Y > 0)
-                {
-                    player.move(-8);
-                }
-                if (airDownFrames > 0) airDownFrames -= 2;
+                case "none":
+                    standardGrounded();
+                    standardUp();
+                    standardGav();
+                    standardJump();
+                    break;
+                case "teleporter":
+                    grounded = true;
+                    break;
+                case "superJump":
+                    superJumpUp();
+                    superJumpGav();        
+                    break;
+                case "gravity":
+                    GsuitGav();
+                    
+                    break;
             }
-            if (player.hb.Bottom < this.Height - pheight) // if player is not touching bottom of screen
-            {
-                if (!up)
-                {
-                    if (player.hb.Bottom + 2 < this.Height)
-                    {
-                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 10));
-                    }
-                    else
-                    {
-                        player.hb.Y = this.Height - player.hb.Height;
-                        player.y = this.Height - player.hb.Height;
-                    }
-                    if (airDownFrames < 10) airDownFrames++;
-                }
-                /*
-                 * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
-                if( airDownFrames < 13) airDownFrames++;
-                 */
-            }
-            else if (player.hb.Bottom >= this.Height - pheight) // if player is touching bottom of screen
-            {
-                grounded = true;
-            }
-            if (jumping)
-            {
-                player.move(-30);
-                jumping = false;
-            }
+
+            
+            
+            
             if (endGame) up = false;
             Refresh();
         }
@@ -345,7 +363,7 @@ namespace Jet_Boi_RD.Screens
             {
 
             }
-            else if (e.KeyCode == Keys.Space && !endGame)
+            else if (e.KeyCode == Keys.Space && !endGame && curntMech != "gravity")
             {
                 if (grounded) // boost
                 {
@@ -364,8 +382,21 @@ namespace Jet_Boi_RD.Screens
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(playerPen, player.hb);
+            switch(curntMech)
+            {
+                case "none":
+                    //e.Graphics.DrawRectangle(playerPen, player.hb);
+                    break;
+                case "teleporter":
+                    break;
+                case "superJump":
+                    break;
+                case "gravity":
+                    break;
 
+            }
+            e.Graphics.DrawRectangle(playerPen, player.hb);
+            if (curntMech == "teleporter") teleporterDraw(e.Graphics, teleporterMarkerY);
             foreach (Classes.laser l in lasers)
             {
                 l.move();
@@ -374,12 +405,23 @@ namespace Jet_Boi_RD.Screens
                 if (player.hb.IntersectsWith(l.hb))
                 {
                     //GameOver();
-                    if (!endGame)
+                    if (!endGame && curntMech == "none")
                     {
                         endGame = true;
                         bounce = (this.Height - player.y) / 2;
                     }
+                    else if(curntMech != "none")
+                    {
+                        toClearLsers = true;
+                        grounded = false;
+                        curntMech = "none";
+                    }
                 }
+            }
+            if(toClearLsers)
+            {
+                lasers.Clear();
+                toClearLsers = false;
             }
             List<Classes.coin> delete = new List<Classes.coin>();
             foreach (Classes.coin c in coins)
@@ -401,9 +443,30 @@ namespace Jet_Boi_RD.Screens
                     }
                 }
             }
-            e.Graphics.DrawString("coins " + actualDist, Font, new SolidBrush(Color.White), 0, 10);
+            foreach(Classes.mechToken m in MTokens)
+            {
+                if (m.hb.IntersectsWith(player.hb))
+                {
+                    MTokenToRemove = m;
+                    curntMech = m.type;
+                }
+                else
+                {
+                    m.move();
+                    e.Graphics.FillRectangle(coinBrush, m.hb);
+                    if (m.hb.Right <= 0)
+                    {
+                        MTokenToRemove = m;
+
+                    }
+                }
+            }
+            e.Graphics.DrawString("Coins " + coinScore, Font, new SolidBrush(Color.White), 0, 10);
+            e.Graphics.DrawString("Distance " + actualDist, Font, new SolidBrush(Color.White), 0, 20);
             RemoveLaser(laserToRemove);
             RemoveCoin(delete);
+            RemoveMToken(MTokenToRemove);
+            MTokenToRemove = null;
             coinToRemove = null;
             laserToRemove = null;
         }
@@ -423,16 +486,21 @@ namespace Jet_Boi_RD.Screens
                 coins.Remove(c);
             }
         }
+        public void RemoveMToken(Classes.mechToken m)
+        {
+            MTokens.Remove(m);
+        }
 
         private void GameScreen_Load(object sender, EventArgs e)
         {
-            player.y = this.Height - pheight * 2;
-            player.hb.Y = this.Height - pheight * 2;
+            player.y = this.Height - pheight;
+            player.hb.Y = this.Height - pheight;
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
             up = false;
+            keydown = false;
         }
 
         private void generateCoin(int pattern, int pos)
@@ -526,6 +594,195 @@ namespace Jet_Boi_RD.Screens
 
             lasers.Add(new Classes.laser(this.Width, y, l, w));
         }
+
+        public void teleporterMove(int y)
+        {
+            player.moveTo(y);
+        }
+
+        public void teleporterDraw(Graphics g, int y)
+        {
+            if(y >= this.Height - pheight )
+            {
+                teleporterUp = true;
+            }
+            if( y<0)
+            {
+                teleporterUp = false;
+            }
+            
+
+            if (teleporterUp) y-= 5;
+            else y+=5;
+
+            g.DrawRectangle(new Pen(Color.White), player.x, y, pwidth, pheight);
+            teleporterMarkerY = y;
+        }
+
+        private void GameScreen_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Space && !keydown)
+            {
+                switch (curntMech)
+                {
+                    case "none":
+                        break;
+                    case "teleporter":
+                        teleporterMove(teleporterMarkerY);
+                        break;
+                    case "superJump":
+                        break;
+                    case "gravity":
+                        gravDown = !gravDown;
+                        airDownFrames = 0;
+                        break;
+                }
+                keydown = true;
+            }
+        }
+        #region gravities
+        public void standardGav()
+        {
+            if (player.hb.Bottom < this.Height) // if player is not touching bottom of screen
+            {
+                if (!up)
+                {
+ 
+                    if (player.hb.Bottom  < this.Height)
+                    {
+                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20));
+                    }
+                 
+
+                    if (airDownFrames < 15) airDownFrames++;
+                }
+                /*
+                 * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
+                if( airDownFrames < 13) airDownFrames++;
+                 */
+            }
+        }
+
+        public void GsuitGav()
+        {
+            if (gravDown)
+            {
+                if (player.hb.Bottom < this.Height) // if player is not touching bottom of screen
+                {
+
+
+                    if (player.hb.Bottom < this.Height)
+                    {
+                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 30));
+                    }
+
+
+
+                    if (airDownFrames < 20) airDownFrames++;
+
+                    /*
+                     * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
+                    if( airDownFrames < 13) airDownFrames++;
+                     */
+                }
+                else airDownFrames = 0;
+            }
+            else
+            {
+                if (player.hb.Top > 0) // if player is not touching bottom of screen
+                {
+
+
+                    if (player.hb.Top > 0)
+                    {
+                        player.move(-(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 30)));
+                    }
+                    
+
+
+                    if (airDownFrames < 20) airDownFrames++;
+
+                    /*
+                     * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
+                    if( airDownFrames < 13) airDownFrames++;
+                     */
+                }
+                else airDownFrames = 0;
+            }
+        }
+
+        public void superJumpGav()
+        {
+            if (player.hb.Bottom < this.Height) // if player is not touching bottom of screen
+            {
+
+
+                if (player.hb.Bottom < this.Height)
+                {
+                    player.move(1 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20));
+                }
+
+                if (upFrames > 0 && !jumping) upFrames--;
+                if (airDownFrames < 8 && !grounded) airDownFrames++;
+
+                /*
+                 * (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20);
+                if( airDownFrames < 13) airDownFrames++;
+                 */
+            }
+            else
+            {
+                grounded = true;
+                airDownFrames = 0;
+            }
+
+        }
+        #endregion
+
+        #region ups
+        public void standardUp()
+        {
+            if (up)
+            {
+                if (player.hb.Y > 0)
+                {
+                    player.move(-8);
+                }
+                if (airDownFrames > 0) airDownFrames -= 2;
+            }
+        }
+        public void superJumpUp()
+        {
+            if (jumping && upFrames < 20)
+            {
+                if (player.hb.Y > 0)
+                {
+                    player.move(-10);
+                    upFrames++;
+                }
+
+            }
+            else jumping = false;
+        }
+        #endregion
+        #region jumps
+        public void standardJump()
+        {
+            if (jumping)
+            {
+                player.move(-30);
+                jumping = false;
+            }
+        }
         
+
+        #endregion
+        public void standardGrounded()
+        {
+            if (player.hb.Bottom >= this.Height) // if player is touching bottom of screen
+            {
+                  grounded = true;
+            }
+        }
     }
 }

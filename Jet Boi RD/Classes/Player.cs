@@ -25,5 +25,10 @@ namespace Jet_Boi_RD.Classes
             y += spd;
             hb.Y += spd;
         }
+        public void moveTo(int loc)
+        {
+            y = loc;
+            hb.Y = loc;
+        }
     }
 }

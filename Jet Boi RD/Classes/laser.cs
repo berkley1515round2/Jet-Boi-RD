@@ -10,7 +10,6 @@ namespace Jet_Boi_RD.Classes
     public class laser
     {
         public int x, y, height, width;
-        public Point[] cPoints = new Point[4];
         public Rectangle hb;
         
         public laser(int _x, int _y, int _height, int _width)
