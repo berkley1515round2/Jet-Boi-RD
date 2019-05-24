@@ -33,7 +33,7 @@
             this.controlsButton = new System.Windows.Forms.Button();
             this.achievementsButton = new System.Windows.Forms.Button();
             this.missionsButton = new System.Windows.Forms.Button();
-            this.buyCoinButton = new System.Windows.Forms.Button();
+            this.playButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gadgetsButton
@@ -86,21 +86,21 @@
             this.missionsButton.Text = "Missions";
             this.missionsButton.UseVisualStyleBackColor = true;
             // 
-            // buyCoinButton
+            // playButton
             // 
-            this.buyCoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buyCoinButton.Location = new System.Drawing.Point(978, 351);
-            this.buyCoinButton.Name = "buyCoinButton";
-            this.buyCoinButton.Size = new System.Drawing.Size(270, 120);
-            this.buyCoinButton.TabIndex = 5;
-            this.buyCoinButton.Text = "Buy Coins";
-            this.buyCoinButton.UseVisualStyleBackColor = true;
+            this.playButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playButton.Location = new System.Drawing.Point(978, 351);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(270, 120);
+            this.playButton.TabIndex = 5;
+            this.playButton.Text = "Play Again";
+            this.playButton.UseVisualStyleBackColor = true;
             // 
             // ShopScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buyCoinButton);
+            this.Controls.Add(this.playButton);
             this.Controls.Add(this.missionsButton);
             this.Controls.Add(this.achievementsButton);
             this.Controls.Add(this.controlsButton);
@@ -119,6 +119,6 @@
         private System.Windows.Forms.Button controlsButton;
         private System.Windows.Forms.Button achievementsButton;
         private System.Windows.Forms.Button missionsButton;
-        private System.Windows.Forms.Button buyCoinButton;
+        private System.Windows.Forms.Button playButton;
     }
 }
