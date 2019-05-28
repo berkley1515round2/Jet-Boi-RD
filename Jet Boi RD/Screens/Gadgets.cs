@@ -10,26 +10,11 @@ using System.Windows.Forms;
 
 namespace Jet_Boi_RD.Screens
 {
-    public partial class ShopScreen : UserControl
+    public partial class Gadgets : UserControl
     {
-        public ShopScreen()
+        public Gadgets()
         {
             InitializeComponent();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }
