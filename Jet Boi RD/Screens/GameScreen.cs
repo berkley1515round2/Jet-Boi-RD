@@ -46,6 +46,7 @@ namespace Jet_Boi_RD.Screens
         bool endGame = false;
         int bounce;
         bool bounceUp = true;
+        bool started = false;
 
         bool spawnBarrage = false;
         int barrageSpawns = 0;
@@ -86,6 +87,10 @@ namespace Jet_Boi_RD.Screens
                 upgradesActv.Add("jumpBoost", false);
                 upgrades.Add("ironBoi", false);
                 upgradesActv.Add("ironBoi", false);
+                upgrades.Add("xray", false);
+                upgradesActv.Add("xray", false);
+                upgrades.Add("jammer", false);
+                upgradesActv.Add("jammer", false);
                 Dictionary<string, bool> a = new Dictionary<string, bool>();
                 a.Add("magnet", false);
                 a.Add("golden", false);
@@ -102,6 +107,8 @@ namespace Jet_Boi_RD.Screens
             }
             //xmlSave();
             xmlLoad();
+            Refresh();
+            gameTimer.Enabled = false;
         }
 
         public static void xmlLoad()
@@ -261,6 +268,7 @@ namespace Jet_Boi_RD.Screens
             else
             {
                 Form1.switchScreen(this, "shop");
+                
             }
         }
 
@@ -295,7 +303,7 @@ namespace Jet_Boi_RD.Screens
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
             }
-            if (r.Next(0, 2) == 0 && tick % 1200 == 0 && !endGame && curntMech == "none")
+            if (r.Next(0, 2) == 0 && tick % 10 == 0 && !endGame && curntMech == "none")
             {
                 Classes.mechToken m = new Classes.mechToken(this.Width, r.Next(0, this.Height - 50));
                 if (!abort)
@@ -332,7 +340,7 @@ namespace Jet_Boi_RD.Screens
                     //timeBtwnLasers = 5;
                 }
             }
-            if(tick % 600 == 0 && r.Next(0,3) == 0)
+            if(tick % 600 == 0 && r.Next(0,3) == 0 && !upgrades["jammer"])
             {
                 if (r.Next(0, 5) == 0)
                 {
@@ -407,6 +415,12 @@ namespace Jet_Boi_RD.Screens
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            if(!started)
+            {
+                Font s = new Font(Font.FontFamily, 20);
+
+                e.Graphics.DrawString("Press Space to Play!", s, new SolidBrush(Color.White), (this.Width - 300) / 2, 100);
+            }
             switch (curntMech)
             {
                 case "none":
@@ -512,6 +526,7 @@ namespace Jet_Boi_RD.Screens
             }
             foreach (Classes.mechToken m in MTokens)
             {
+                
                 if (m.hb.IntersectsWith(player.hb))
                 {
                     MTokenToRemove = m;
@@ -528,6 +543,24 @@ namespace Jet_Boi_RD.Screens
                         MTokenToRemove = m;
 
                     }
+                }
+                if (upgrades["xray"])
+                {
+                    string s = "";
+                    Font f = new Font(Font.FontFamily, 20);
+                    if (m.type == "teleporter")
+                    {
+                        s = "T";
+                    }
+                    else if (m.type == "superJump")
+                    {
+                        s = "S";
+                    }
+                    else if (m.type == "gravity")
+                    {
+                        s = "G";
+                    }
+                    e.Graphics.DrawString(s, f, new SolidBrush(Color.Black), m.hb.X + 10, m.hb.Y + 10);
                 }
             }
             e.Graphics.DrawString("Coins " + coinScore, Font, new SolidBrush(Color.White), 0, 10);
@@ -712,6 +745,12 @@ namespace Jet_Boi_RD.Screens
                 }
                 keydown = true;
             }
+            if (e.KeyChar == (char)Keys.Space && !started)
+            {
+                started = true;
+                gameTimer.Enabled = true;
+            }
+
         }
         #region gravities
         public void standardGav()
@@ -720,10 +759,12 @@ namespace Jet_Boi_RD.Screens
             {
                 if (!up)
                 {
-
+                    int down = 20;
+                    if (upgrades["ironBoi"]) down = 10;
+                   
                     if (player.hb.Bottom < this.Height)
                     {
-                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / 20));
+                        player.move(2 + (int)Math.Floor(Math.Pow(airDownFrames, 2) / down));
                     }
 
 
@@ -819,7 +860,12 @@ namespace Jet_Boi_RD.Screens
             {
                 if (player.hb.Y > 0)
                 {
-                    player.move(-8);
+                    int m = -8;
+                    if(upgrades["jumpBoost"])
+                    {
+                        m = -10;
+                    }
+                    player.move(m);
                 }
                 if (airDownFrames > 0) airDownFrames -= 2;
             }
