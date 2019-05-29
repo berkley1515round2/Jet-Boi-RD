@@ -303,7 +303,7 @@ namespace Jet_Boi_RD.Screens
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
             }
-            if (r.Next(0, 2) == 0 && tick % 10 == 0 && !endGame && curntMech == "none")
+            if (r.Next(0, 2) == 0 && tick % 600 == 0 && !endGame && curntMech == "none")
             {
                 Classes.mechToken m = new Classes.mechToken(this.Width, r.Next(0, this.Height - 50));
                 if (!abort)
