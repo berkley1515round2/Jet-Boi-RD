@@ -16,20 +16,10 @@ namespace Jet_Boi_RD.Screens
         {
             InitializeComponent();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
 
         }
+
+        
     }
 }
