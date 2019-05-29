@@ -15,7 +15,6 @@ namespace Jet_Boi_RD.Screens
         public ShopScreen()
         {
             InitializeComponent();
-
             teleporterButton.Enabled = !GameScreen.mechs["teleporter"];
             gravitySuitButton.Enabled = !GameScreen.mechs["gravity"];
             hogButton.Enabled = !GameScreen.mechs["superJump"];
@@ -62,5 +61,7 @@ namespace Jet_Boi_RD.Screens
         {
             Form1.switchScreen(this, "game");
         }
+
+        
     }
 }
