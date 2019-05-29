@@ -32,10 +32,10 @@ namespace Jet_Boi_RD.Classes
                     type = "gravity";
                     break;
             }
-            if(!Screens.GameScreen.mechs[type])
-            {
-                Screens.GameScreen.abort = true;
-            }
+
+            Screens.GameScreen.abort = !Screens.GameScreen.mechs[type];
+
+
 
         }
         public void move()
