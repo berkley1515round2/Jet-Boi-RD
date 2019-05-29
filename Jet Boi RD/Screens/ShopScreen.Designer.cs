@@ -50,6 +50,7 @@
             this.backButton.TabIndex = 8;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // mechLabel
             // 
@@ -83,6 +84,7 @@
             this.teleporterButton.TabIndex = 0;
             this.teleporterButton.Text = "Teleport Boi RD";
             this.teleporterButton.UseVisualStyleBackColor = true;
+            this.teleporterButton.Click += new System.EventHandler(this.TeleporterButton_Click);
             // 
             // airBoiButton
             // 
@@ -119,6 +121,7 @@
             this.gravitySuitButton.TabIndex = 1;
             this.gravitySuitButton.Text = "Gravity Suit Boi RD";
             this.gravitySuitButton.UseVisualStyleBackColor = true;
+            this.gravitySuitButton.Click += new System.EventHandler(this.GravitySuitButton_Click);
             // 
             // hogButton
             // 
@@ -128,6 +131,7 @@
             this.hogButton.TabIndex = 2;
             this.hogButton.Text = "Hog Boi RD";
             this.hogButton.UseVisualStyleBackColor = true;
+            this.hogButton.Click += new System.EventHandler(this.HogButton_Click);
             // 
             // jammerBoiButton
             // 
