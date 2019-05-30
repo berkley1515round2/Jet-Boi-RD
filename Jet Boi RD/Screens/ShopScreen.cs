@@ -19,13 +19,18 @@ namespace Jet_Boi_RD.Screens
         public ShopScreen()
         {
             InitializeComponent();
+            teleporterButton.Enabled = !GameScreen.mechs["teleporter"];
+            gravitySuitButton.Enabled = !GameScreen.mechs["gravity"];
+            hogButton.Enabled = !GameScreen.mechs["superJump"];
 
-            if (switchS)
-            {
-                Form1.switchScreen(this, "game");
-                switchS = false;
-            }
 
+
+
+            
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Form1.switchScreen(this, "game");
         }
 
         

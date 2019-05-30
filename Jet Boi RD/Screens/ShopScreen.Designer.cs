@@ -59,7 +59,9 @@
             this.backButton.Size = new System.Drawing.Size(169, 58);
             this.backButton.TabIndex = 8;
             this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = false;
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
+
             // 
             // mechLabel
             // 
@@ -94,8 +96,12 @@
             this.teleporterButton.Size = new System.Drawing.Size(500, 100);
             this.teleporterButton.TabIndex = 0;
             this.teleporterButton.Text = "Teleport Boi RD";
+
             this.teleporterButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.teleporterButton.UseVisualStyleBackColor = false;
+
+            this.teleporterButton.UseVisualStyleBackColor = true;
+            this.teleporterButton.Click += new System.EventHandler(this.TeleporterButton_Click);
+
             // 
             // airBoiButton
             // 
@@ -142,8 +148,12 @@
             this.gravitySuitButton.Size = new System.Drawing.Size(500, 100);
             this.gravitySuitButton.TabIndex = 1;
             this.gravitySuitButton.Text = "Gravity Suit Boi RD";
+
             this.gravitySuitButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.gravitySuitButton.UseVisualStyleBackColor = false;
+
+            this.gravitySuitButton.UseVisualStyleBackColor = true;
+            this.gravitySuitButton.Click += new System.EventHandler(this.GravitySuitButton_Click);
+
             // 
             // hogButton
             // 
@@ -155,7 +165,9 @@
             this.hogButton.TabIndex = 2;
             this.hogButton.Text = "Hog Boi RD";
             this.hogButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.hogButton.UseVisualStyleBackColor = false;
+            this.hogButton.UseVisualStyleBackColor = true;
+            this.hogButton.Click += new System.EventHandler(this.HogButton_Click);
+
             // 
             // jammerBoiButton
             // 
