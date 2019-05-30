@@ -86,6 +86,10 @@ namespace Jet_Boi_RD.Screens
                 upgradesActv.Add("jumpBoost", false);
                 upgrades.Add("ironBoi", false);
                 upgradesActv.Add("ironBoi", false);
+                upgrades.Add("xray", false);
+                upgradesActv.Add("xray", false);
+                upgrades.Add("jammer", false);
+                upgradesActv.Add("jammer", false);
                 Dictionary<string, bool> a = new Dictionary<string, bool>();
                 a.Add("magnet", false);
                 a.Add("golden", false);
@@ -100,7 +104,7 @@ namespace Jet_Boi_RD.Screens
                 mechUpgs.Add("gravity", c);
                 Form1.start = true;
             }
-            //xmlSave();
+            xmlSave();
             xmlLoad();
         }
 
@@ -237,7 +241,7 @@ namespace Jet_Boi_RD.Screens
             xmlSave();
             gameTimer.Stop();
 
-            if (coinScore >= 250)
+            if (coinScore >= 0)
             {
                 revivePopup rp = new revivePopup();
 
@@ -255,6 +259,13 @@ namespace Jet_Boi_RD.Screens
                 else if (result == DialogResult.No)
                 {
                     Form1.switchScreen(this, "shop");
+                    dist = 0;
+                }
+                else if (result == DialogResult.OK)
+                {
+                    ShopScreen.switchS = true;
+                    Form1.switchScreen(this, "shop");
+                    
                     dist = 0;
                 }
             }

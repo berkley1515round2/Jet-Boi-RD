@@ -45,6 +45,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
+            this.Size = new System.Drawing.Size(1435, 641);
             this.Load += new System.EventHandler(this.GameScreen_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyDown);
