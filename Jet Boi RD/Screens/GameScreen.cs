@@ -78,6 +78,11 @@ namespace Jet_Boi_RD.Screens
         public GameScreen()
         {
             InitializeComponent();
+            backgroundMoveSpd = 8;
+            lasers.Clear();
+            rockets.Clear();
+            MTokens.Clear();
+            coinChance = 30;
             if (!Form1.start)
             {
                 mechs.Add("superJump", true);
@@ -249,7 +254,7 @@ namespace Jet_Boi_RD.Screens
                 revivePopup rp = new revivePopup();
 
                 DialogResult result = rp.ShowDialog();
-
+                rp.Location = this.Location;
                 if (result == DialogResult.Yes)
                 {
                     gameTimer.Enabled = true;

@@ -107,6 +107,7 @@
             this.Controls.Add(this.reviveButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "revivePopup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "revivePopup";
             this.ResumeLayout(false);
 
