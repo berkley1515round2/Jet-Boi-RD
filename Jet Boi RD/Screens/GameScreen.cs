@@ -78,6 +78,11 @@ namespace Jet_Boi_RD.Screens
         public GameScreen()
         {
             InitializeComponent();
+            backgroundMoveSpd = 8;
+            lasers.Clear();
+            rockets.Clear();
+            MTokens.Clear();
+            coinChance = 30;
             if (!Form1.start)
             {
                 mechs.Add("superJump", true);
@@ -105,7 +110,7 @@ namespace Jet_Boi_RD.Screens
                 mechUpgs.Add("gravity", c);
                 Form1.start = true;
             }
-            //xmlSave();
+            xmlSave();
             xmlLoad();
             Refresh();
             gameTimer.Enabled = false;
@@ -244,12 +249,12 @@ namespace Jet_Boi_RD.Screens
             xmlSave();
             gameTimer.Stop();
 
-            if (coinScore >= 250)
+            if (coinScore >= 0)
             {
                 revivePopup rp = new revivePopup();
 
                 DialogResult result = rp.ShowDialog();
-
+                rp.Location = this.Location;
                 if (result == DialogResult.Yes)
                 {
                     gameTimer.Enabled = true;
@@ -262,6 +267,13 @@ namespace Jet_Boi_RD.Screens
                 else if (result == DialogResult.No)
                 {
                     Form1.switchScreen(this, "shop");
+                    dist = 0;
+                }
+                else if (result == DialogResult.OK)
+                {
+                    ShopScreen.switchS = true;
+                    Form1.switchScreen(this, "shop");
+                    
                     dist = 0;
                 }
             }

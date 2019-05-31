@@ -26,5 +26,10 @@ namespace Jet_Boi_RD.Screens
         {
             DialogResult = DialogResult.No;
         }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+        }
     }
 }

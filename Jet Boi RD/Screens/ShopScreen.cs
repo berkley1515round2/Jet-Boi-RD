@@ -12,12 +12,17 @@ namespace Jet_Boi_RD.Screens
 {
     public partial class ShopScreen : UserControl
     {
+        public static bool switchS = false;
+
+
+
         public ShopScreen()
         {
             InitializeComponent();
             teleporterButton.Enabled = !GameScreen.mechs["teleporter"];
             gravitySuitButton.Enabled = !GameScreen.mechs["gravity"];
             hogButton.Enabled = !GameScreen.mechs["superJump"];
+
 
 
 
@@ -62,6 +67,14 @@ namespace Jet_Boi_RD.Screens
             Form1.switchScreen(this, "game");
         }
 
-        
+        private void ShopScreen_Load(object sender, EventArgs e)
+        {
+
+            if (switchS)
+            {
+                Form1.switchScreen(this, "game");
+                switchS = false;
+            }
+        }
     }
 }
