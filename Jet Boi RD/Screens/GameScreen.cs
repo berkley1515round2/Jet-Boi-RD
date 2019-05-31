@@ -35,6 +35,7 @@ namespace Jet_Boi_RD.Screens
         List<Classes.coin> coins = new List<Classes.coin>();
         public static int backgroundMoveSpd = 8;
         Classes.laser laserToRemove;
+        Classes.coin coinToRemove;
         Classes.mechToken MTokenToRemove;
         Classes.rocket rocketToRemove;
         public static long dist;
@@ -77,7 +78,11 @@ namespace Jet_Boi_RD.Screens
         public GameScreen()
         {
             InitializeComponent();
-            player.y = this.Height - pheight;
+            backgroundMoveSpd = 8;
+            lasers.Clear();
+            rockets.Clear();
+            MTokens.Clear();
+            coinChance = 30;
             if (!Form1.start)
             {
                 mechs.Add("superJump", true);
@@ -105,7 +110,7 @@ namespace Jet_Boi_RD.Screens
                 mechUpgs.Add("gravity", c);
                 Form1.start = true;
             }
-            //xmlSave();
+            xmlSave();
             xmlLoad();
             Refresh();
             gameTimer.Enabled = false;
@@ -244,12 +249,12 @@ namespace Jet_Boi_RD.Screens
             xmlSave();
             gameTimer.Stop();
 
-            if (coinScore >= 250)
+            if (coinScore >= 0)
             {
                 revivePopup rp = new revivePopup();
 
                 DialogResult result = rp.ShowDialog();
-
+                rp.Location = this.Location;
                 if (result == DialogResult.Yes)
                 {
                     gameTimer.Enabled = true;
@@ -262,6 +267,13 @@ namespace Jet_Boi_RD.Screens
                 else if (result == DialogResult.No)
                 {
                     Form1.switchScreen(this, "shop");
+                    dist = 0;
+                }
+                else if (result == DialogResult.OK)
+                {
+                    ShopScreen.switchS = true;
+                    Form1.switchScreen(this, "shop");
+                    
                     dist = 0;
                 }
             }
@@ -303,7 +315,7 @@ namespace Jet_Boi_RD.Screens
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
             }
-            if (r.Next(0, 2) == 0 && tick % 1200 == 0 && !endGame && curntMech == "none")
+            if (r.Next(0, 2) == 0 && tick % 600 == 0 && !endGame && curntMech == "none")
             {
                 Classes.mechToken m = new Classes.mechToken(this.Width, r.Next(0, this.Height - 50));
                 if (!abort)
@@ -569,7 +581,7 @@ namespace Jet_Boi_RD.Screens
             RemoveCoin(delete);
             RemoveMToken(MTokenToRemove);
             MTokenToRemove = null;
-            //coinToRemove = null;
+            coinToRemove = null;
             laserToRemove = null;
         }
 
