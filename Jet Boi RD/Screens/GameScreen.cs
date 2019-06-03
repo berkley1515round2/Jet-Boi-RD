@@ -85,9 +85,9 @@ namespace Jet_Boi_RD.Screens
             coinChance = 30;
             if (!Form1.start)
             {
-                mechs.Add("superJump", true);
-                mechs.Add("teleporter", true);
-                mechs.Add("gravity", true);
+                mechs.Add("superJump", false);
+                mechs.Add("teleporter", false);
+                mechs.Add("gravity", false);
                 upgrades.Add("jumpBoost", false);
                 upgradesActv.Add("jumpBoost", false);
                 upgrades.Add("ironBoi", false);
@@ -110,7 +110,7 @@ namespace Jet_Boi_RD.Screens
                 mechUpgs.Add("gravity", c);
                 Form1.start = true;
             }
-            xmlSave();
+            //xmlSave();
             xmlLoad();
             Refresh();
             gameTimer.Enabled = false;
@@ -252,9 +252,9 @@ namespace Jet_Boi_RD.Screens
             if (coinScore >= 0)
             {
                 revivePopup rp = new revivePopup();
-
+                rp.Location = this.FindForm().Location;
                 DialogResult result = rp.ShowDialog();
-                rp.Location = this.Location;
+               
                 if (result == DialogResult.Yes)
                 {
                     gameTimer.Enabled = true;
@@ -267,6 +267,7 @@ namespace Jet_Boi_RD.Screens
                 else if (result == DialogResult.No)
                 {
                     Form1.switchScreen(this, "shop");
+                    actualDist = 0;
                     dist = 0;
                 }
                 else if (result == DialogResult.OK)
@@ -275,6 +276,7 @@ namespace Jet_Boi_RD.Screens
                     Form1.switchScreen(this, "shop");
                     
                     dist = 0;
+                    actualDist = 0;
                 }
             }
             else
@@ -315,7 +317,7 @@ namespace Jet_Boi_RD.Screens
             {
                 generateCoin(r.Next(0, 3), r.Next(100, this.Height - 100));
             }
-            if (r.Next(0, 2) == 0 && tick % 600 == 0 && !endGame && curntMech == "none")
+            if (r.Next(0, 2) == 0 && tick % 1200 == 0 && !endGame && curntMech == "none")
             {
                 Classes.mechToken m = new Classes.mechToken(this.Width, r.Next(0, this.Height - 50));
                 if (!abort)
@@ -408,6 +410,7 @@ namespace Jet_Boi_RD.Screens
             {
 
             }
+            if (e.KeyCode == Keys.Q) coinScore += 50;
             else if (e.KeyCode == Keys.Space && !endGame && curntMech != "gravity")
             {
                 if (grounded) // boost
@@ -419,6 +422,35 @@ namespace Jet_Boi_RD.Screens
                 else if (!endGame)
                 {
                     up = true;
+                }
+            }
+            else if (e.KeyCode == Keys.P && !endGame)
+            {
+                pausePopup rp = new pausePopup();
+                rp.Location = this.FindForm().Location;
+                gameTimer.Enabled = false;
+                DialogResult result = rp.ShowDialog();
+
+
+
+                if (result == DialogResult.Yes)
+                {
+                    gameTimer.Enabled = true;
+                    backgroundMoveSpd = spdStorage;
+                    timeBtwnLasers = 120;
+                    coinScore -= 250;
+                    endGame = false;
+                    lasers.Clear();
+                }
+                else if (result == DialogResult.No)
+                {
+                    dist = 0;
+                    actualDist = 0;
+                    Refresh();
+                    ShopScreen.switchS = true;
+                    Form1.switchScreen(this, "shop");
+
+
                 }
             }
 

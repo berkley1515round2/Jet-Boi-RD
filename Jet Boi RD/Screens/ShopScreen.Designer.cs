@@ -110,6 +110,7 @@
             this.airBoiButton.Text = "Air Boi RD";
             this.airBoiButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.airBoiButton.UseVisualStyleBackColor = false;
+            this.airBoiButton.Click += new System.EventHandler(this.AirBoiButton_Click);
             // 
             // gravityBoiButton
             // 
@@ -122,6 +123,7 @@
             this.gravityBoiButton.Text = "Gravity Boi RD";
             this.gravityBoiButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.gravityBoiButton.UseVisualStyleBackColor = false;
+            this.gravityBoiButton.Click += new System.EventHandler(this.GravityBoiButton_Click);
             // 
             // xRayBoiButton
             // 
@@ -134,6 +136,7 @@
             this.xRayBoiButton.Text = "X-Ray Boi RD";
             this.xRayBoiButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.xRayBoiButton.UseVisualStyleBackColor = false;
+            this.xRayBoiButton.Click += new System.EventHandler(this.XRayBoiButton_Click);
             // 
             // gravitySuitButton
             // 
@@ -172,6 +175,7 @@
             this.jammerBoiButton.Text = "Jammer Boi RD";
             this.jammerBoiButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.jammerBoiButton.UseVisualStyleBackColor = false;
+            this.jammerBoiButton.Click += new System.EventHandler(this.JammerBoiButton_Click);
             // 
             // dragonButton
             // 
