@@ -54,7 +54,7 @@
             // 
             this.backButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.backButton.Location = new System.Drawing.Point(1250, 570);
+            this.backButton.Location = new System.Drawing.Point(1133, 579);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(169, 58);
             this.backButton.TabIndex = 8;
@@ -103,7 +103,7 @@
             // 
             this.airBoiButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.airBoiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.airBoiButton.Location = new System.Drawing.Point(822, 108);
+            this.airBoiButton.Location = new System.Drawing.Point(802, 108);
             this.airBoiButton.Name = "airBoiButton";
             this.airBoiButton.Size = new System.Drawing.Size(500, 100);
             this.airBoiButton.TabIndex = 4;
@@ -116,7 +116,7 @@
             // 
             this.gravityBoiButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.gravityBoiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.gravityBoiButton.Location = new System.Drawing.Point(822, 220);
+            this.gravityBoiButton.Location = new System.Drawing.Point(802, 220);
             this.gravityBoiButton.Name = "gravityBoiButton";
             this.gravityBoiButton.Size = new System.Drawing.Size(500, 100);
             this.gravityBoiButton.TabIndex = 5;
@@ -129,7 +129,7 @@
             // 
             this.xRayBoiButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.xRayBoiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.xRayBoiButton.Location = new System.Drawing.Point(822, 335);
+            this.xRayBoiButton.Location = new System.Drawing.Point(802, 335);
             this.xRayBoiButton.Name = "xRayBoiButton";
             this.xRayBoiButton.Size = new System.Drawing.Size(500, 100);
             this.xRayBoiButton.TabIndex = 6;
@@ -168,7 +168,7 @@
             // 
             this.jammerBoiButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.jammerBoiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.jammerBoiButton.Location = new System.Drawing.Point(822, 450);
+            this.jammerBoiButton.Location = new System.Drawing.Point(802, 450);
             this.jammerBoiButton.Name = "jammerBoiButton";
             this.jammerBoiButton.Size = new System.Drawing.Size(500, 100);
             this.jammerBoiButton.TabIndex = 7;
@@ -237,7 +237,7 @@
             // 
             this.airBoiPriceLabel.BackColor = System.Drawing.Color.LightSlateGray;
             this.airBoiPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.airBoiPriceLabel.Location = new System.Drawing.Point(1213, 123);
+            this.airBoiPriceLabel.Location = new System.Drawing.Point(1189, 123);
             this.airBoiPriceLabel.Name = "airBoiPriceLabel";
             this.airBoiPriceLabel.Size = new System.Drawing.Size(100, 27);
             this.airBoiPriceLabel.TabIndex = 13;
@@ -248,7 +248,7 @@
             // 
             this.gravBoiPriceLabel.BackColor = System.Drawing.Color.LightSlateGray;
             this.gravBoiPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.gravBoiPriceLabel.Location = new System.Drawing.Point(1213, 235);
+            this.gravBoiPriceLabel.Location = new System.Drawing.Point(1189, 235);
             this.gravBoiPriceLabel.Name = "gravBoiPriceLabel";
             this.gravBoiPriceLabel.Size = new System.Drawing.Size(100, 27);
             this.gravBoiPriceLabel.TabIndex = 14;
@@ -259,7 +259,7 @@
             // 
             this.xRayPriceLabel.BackColor = System.Drawing.Color.LightSlateGray;
             this.xRayPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.xRayPriceLabel.Location = new System.Drawing.Point(1213, 350);
+            this.xRayPriceLabel.Location = new System.Drawing.Point(1189, 350);
             this.xRayPriceLabel.Name = "xRayPriceLabel";
             this.xRayPriceLabel.Size = new System.Drawing.Size(100, 27);
             this.xRayPriceLabel.TabIndex = 15;
@@ -270,7 +270,7 @@
             // 
             this.jamerPriceLabel.BackColor = System.Drawing.Color.LightSlateGray;
             this.jamerPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.jamerPriceLabel.Location = new System.Drawing.Point(1213, 465);
+            this.jamerPriceLabel.Location = new System.Drawing.Point(1189, 465);
             this.jamerPriceLabel.Name = "jamerPriceLabel";
             this.jamerPriceLabel.Size = new System.Drawing.Size(100, 27);
             this.jamerPriceLabel.TabIndex = 16;
@@ -311,7 +311,7 @@
             this.Controls.Add(this.mechLabel);
             this.Controls.Add(this.backButton);
             this.Name = "ShopScreen";
-            this.Size = new System.Drawing.Size(1435, 641);
+            this.Size = new System.Drawing.Size(1366, 768);
             this.Load += new System.EventHandler(this.ShopScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

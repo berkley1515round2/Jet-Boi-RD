@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "Gadgets";
-            this.Size = new System.Drawing.Size(1435, 641);
+            this.Size = new System.Drawing.Size(1366, 768);
             this.ResumeLayout(false);
 
         }

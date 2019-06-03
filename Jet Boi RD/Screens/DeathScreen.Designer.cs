@@ -39,7 +39,7 @@
             // 
             this.playAgainButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.playAgainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playAgainButton.Location = new System.Drawing.Point(1098, 501);
+            this.playAgainButton.Location = new System.Drawing.Point(1029, 630);
             this.playAgainButton.Name = "playAgainButton";
             this.playAgainButton.Size = new System.Drawing.Size(320, 120);
             this.playAgainButton.TabIndex = 3;
@@ -50,7 +50,7 @@
             // 
             this.youFlewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.youFlewLabel.ForeColor = System.Drawing.Color.White;
-            this.youFlewLabel.Location = new System.Drawing.Point(490, 95);
+            this.youFlewLabel.Location = new System.Drawing.Point(421, 171);
             this.youFlewLabel.Name = "youFlewLabel";
             this.youFlewLabel.Size = new System.Drawing.Size(507, 227);
             this.youFlewLabel.TabIndex = 90;
@@ -61,7 +61,7 @@
             // 
             this.reviveButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.reviveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 29F);
-            this.reviveButton.Location = new System.Drawing.Point(13, 369);
+            this.reviveButton.Location = new System.Drawing.Point(3, 498);
             this.reviveButton.Name = "reviveButton";
             this.reviveButton.Size = new System.Drawing.Size(351, 252);
             this.reviveButton.TabIndex = 0;
@@ -73,7 +73,7 @@
             // 
             this.shopButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.shopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.shopButton.Location = new System.Drawing.Point(1098, 328);
+            this.shopButton.Location = new System.Drawing.Point(1029, 490);
             this.shopButton.Name = "shopButton";
             this.shopButton.Size = new System.Drawing.Size(150, 120);
             this.shopButton.TabIndex = 1;
@@ -84,7 +84,7 @@
             // 
             this.homeButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.homeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.homeButton.Location = new System.Drawing.Point(1268, 328);
+            this.homeButton.Location = new System.Drawing.Point(1199, 490);
             this.homeButton.Name = "homeButton";
             this.homeButton.Size = new System.Drawing.Size(150, 120);
             this.homeButton.TabIndex = 2;
@@ -102,7 +102,7 @@
             this.Controls.Add(this.youFlewLabel);
             this.Controls.Add(this.playAgainButton);
             this.Name = "DeathScreen";
-            this.Size = new System.Drawing.Size(1435, 641);
+            this.Size = new System.Drawing.Size(1366, 768);
             this.ResumeLayout(false);
 
         }

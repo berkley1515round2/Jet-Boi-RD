@@ -37,7 +37,7 @@
             // 
             this.pausedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pausedLabel.ForeColor = System.Drawing.Color.White;
-            this.pausedLabel.Location = new System.Drawing.Point(455, 89);
+            this.pausedLabel.Location = new System.Drawing.Point(465, 124);
             this.pausedLabel.Name = "pausedLabel";
             this.pausedLabel.Size = new System.Drawing.Size(507, 210);
             this.pausedLabel.TabIndex = 96;
@@ -48,7 +48,7 @@
             // 
             this.retryButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.retryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.retryButton.Location = new System.Drawing.Point(40, 417);
+            this.retryButton.Location = new System.Drawing.Point(12, 614);
             this.retryButton.Name = "retryButton";
             this.retryButton.Size = new System.Drawing.Size(379, 120);
             this.retryButton.TabIndex = 93;
@@ -60,7 +60,7 @@
             // 
             this.continueButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.continueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.continueButton.Location = new System.Drawing.Point(991, 417);
+            this.continueButton.Location = new System.Drawing.Point(975, 614);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(379, 120);
             this.continueButton.TabIndex = 95;
@@ -73,7 +73,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1419, 602);
+            this.ClientSize = new System.Drawing.Size(1366, 768);
             this.Controls.Add(this.pausedLabel);
             this.Controls.Add(this.retryButton);
             this.Controls.Add(this.continueButton);

@@ -39,7 +39,7 @@
             // 
             this.playAgainButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.playAgainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playAgainButton.Location = new System.Drawing.Point(1002, 461);
+            this.playAgainButton.Location = new System.Drawing.Point(933, 587);
             this.playAgainButton.Name = "playAgainButton";
             this.playAgainButton.Size = new System.Drawing.Size(379, 120);
             this.playAgainButton.TabIndex = 3;
@@ -50,7 +50,7 @@
             // 
             this.homeButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.homeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.homeButton.Location = new System.Drawing.Point(42, 461);
+            this.homeButton.Location = new System.Drawing.Point(49, 587);
             this.homeButton.Name = "homeButton";
             this.homeButton.Size = new System.Drawing.Size(379, 120);
             this.homeButton.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             this.youFlewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.youFlewLabel.ForeColor = System.Drawing.Color.White;
-            this.youFlewLabel.Location = new System.Drawing.Point(459, 20);
+            this.youFlewLabel.Location = new System.Drawing.Point(425, 82);
             this.youFlewLabel.Name = "youFlewLabel";
             this.youFlewLabel.Size = new System.Drawing.Size(507, 210);
             this.youFlewLabel.TabIndex = 91;
@@ -73,7 +73,7 @@
             // 
             this.shopButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.shopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.shopButton.Location = new System.Drawing.Point(527, 461);
+            this.shopButton.Location = new System.Drawing.Point(482, 587);
             this.shopButton.Name = "shopButton";
             this.shopButton.Size = new System.Drawing.Size(379, 120);
             this.shopButton.TabIndex = 2;
@@ -85,7 +85,7 @@
             // 
             this.reviveButton.BackColor = System.Drawing.Color.LightSlateGray;
             this.reviveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 29F);
-            this.reviveButton.Location = new System.Drawing.Point(527, 233);
+            this.reviveButton.Location = new System.Drawing.Point(482, 319);
             this.reviveButton.Name = "reviveButton";
             this.reviveButton.Size = new System.Drawing.Size(379, 191);
             this.reviveButton.TabIndex = 0;
@@ -99,7 +99,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1435, 641);
+            this.ClientSize = new System.Drawing.Size(1366, 768);
             this.Controls.Add(this.youFlewLabel);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.shopButton);
